@@ -1,0 +1,56 @@
+{% extends "modelo.html" %}
+
+{% block title %}Clientes{% endblock %}
+
+{% block content %}
+<form action="{{ url_for('cliente.formCliente') }}" method="POST">
+    <button class="btn btn-danger" type="submit" name="formNovoCliente"><i class="fas fa-plus-circle"></i> Novo Cliente</button>
+</form>
+<br>
+<table class="table table-sm table-hover table-responsive">
+    <!--  table-dark table-bordered table-striped -->
+    <thead>
+        <!--   class="thead-light" .thead-light or .thead-dark -->
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Telefone</th>
+            <th scope="col">CEP</th>
+            <th scope="col">Endereço</th>
+            <th scope="col">Numero</th>
+            <th scope="col">Bairro</th>
+            <th scope="col">Cidade</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Observação</th>
+            <th scope="col">Email</th>
+        </tr>
+    </thead>
+    <tbody>
+    <!-- listagem -->
+            {% if result %}
+            {% for row in result %}
+        <tr>
+            <th >{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+            <td>{{ row[5] }}</td>
+            <td>{{ row[6] }}</td>
+            <td>{{ row[7] }}</td>
+            <td>{{ row[8] }}</td>
+            <td>{{ row[9] }}</td>
+            <td>{{ row[10] }}</td>
+
+            <td>
+                <form action='/cliente/formEditCliente' method='POST' name='editUsuario'>
+                    <input type='hidden' name='id_cliente' value='{{ row[0] }}'>
+                    <button class='btn' type='submit' name='formEditCliente'><i class='fas fa-edit'></i></button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}

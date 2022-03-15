@@ -1,0 +1,42 @@
+{% extends "modelo.html" %}
+
+{% block title %}Produtos{% endblock %}
+
+{% block content %}
+<form action="{{ url_for('produto.formProduto') }}" method="POST">
+    <button class="btn btn-danger" type="submit" name="formNovoProduto"><i class="fas fa-plus-circle"></i> Novo
+        Produto</button>
+</form>
+<br>
+<table class="table table-sm table-hover table-responsive">
+    <!--  table-dark table-bordered table-striped -->
+    <thead>
+        <!--   class="thead-light" .thead-light or .thead-dark -->
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Imagem</th>
+        </tr>
+    </thead>
+    <tbody>
+            {% if result %}
+            {% for row in result %}
+        <tr>
+            <th >{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td><img max-width='60px' height="60px" src="{{ row[3] }}"></td>
+
+            <td>
+                <form action='/produto/formEditProduto' method='POST' name='editProduto'>
+                    <input type='hidden' name='id_produtos' value='{{ row[0] }}'>
+                    <button class='btn' type='submit' name='formEditProduto'><i class='fas fa-edit'></i></button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+{% endblock %}

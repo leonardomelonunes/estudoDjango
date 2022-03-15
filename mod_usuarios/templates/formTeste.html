@@ -1,0 +1,39 @@
+<!-- <!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>BD - AbcBolinhas</title>
+</head>
+<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.3.1/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-5.10.1/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
+<body> -->
+        {% extends "modelo.html" %}
+
+        {% block title %}Cliente{% endblock %}
+        
+        {% block content %}
+    <h1>Editar Usuarios</h1>
+    <h1>Usuário</h1>
+    <form name="usuario" method="POST" action="/usuarios/editUser">
+
+        <label for="id_usuario">ID :</label>
+        <input readonly value="{{ user.id_usuario }}" type="text" name="id_usuario" id="id_usuario">
+        <label for="nome">Nome:</label>
+        <input value="{{ user.nome }}" type="text" name="nome" id="nome" autofocus="" >
+        <label for="login">Login:</label>
+        <input value="{{ user.login }}" type="text" name="login" id="login">
+        <label for="senha">Senha:</label>
+        <input value="{{ user.senha }}" type="password" name="senha" id="senha"><br>
+        <label for="grupo">Grupo:</label>
+        <input value="{{ user.grupo }}" type="text" name="grupo" id="grupo">
+
+        <br><br>
+
+        <button type='submit' class="btn btn-success" name='salvaEditaClienteDB' id='salvaEditaClienteDB'>Salvar</button>
+        <button type='submit' class="btn btn-danger" name='excluiClienteDB' id='excluiClienteDB'>Excluir</button>
+    </form>
+
+<!-- </body> -->
+{% endblock %}
+<!-- </html> -->

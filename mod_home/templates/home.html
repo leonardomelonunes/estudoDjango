@@ -1,0 +1,17 @@
+{% extends "modelo.html" %}
+
+{% block title %}HOME{% endblock %}
+
+{% block content %}
+<h1>HOME</h1>
+    <div class="container mt-5">
+        
+
+        {% if 'usuario' in session %}
+            Bem-vindo <b>{{ session['nome'] }}</b> <br>
+            GRUPO: <b>{{ session['grupo'] }}</b><br>
+
+        {% endif %}
+    </div>
+
+{% endblock %}

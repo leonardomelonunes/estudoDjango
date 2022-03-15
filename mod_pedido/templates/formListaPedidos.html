@@ -1,0 +1,60 @@
+{% extends "modelo.html" %}
+
+{% block title %}Pedidos{% endblock %}
+
+{% block content %}
+
+    <a class="btn btn-danger" href="{{url_for('pedido.formPedido')}}"><i class="fas fa-plus-circle"></i> Novo
+        Pedido</a>
+
+<br>
+<table class="table table-sm table-hover table-responsive">
+    <!--  table-dark table-bordered table-striped -->
+    <thead>
+        <!--   class="thead-light" .thead-light or .thead-dark -->
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Data/Hora</th>
+            <th scope="col">Obs</th>
+            <th scope="col">ID Cliente</th>
+            <th scope="col">Nome Cliente</th>
+            <!-- <th scope="col">Cep</th>
+            <th scope="col">Bairro</th>
+            <th scope="col">Cidade</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">Produtos</th> -->
+        </tr>
+    </thead>
+    <tbody>
+            {% if result %}
+            {% for row in result %}
+        <tr>
+            <th scope='row'>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[3] }}</td>
+            <td>{{ row[4] }}</td>
+            <td>{{ row[5] }}</td>
+            <!-- <td>{{ row[6] }}</td>
+            <td>{{ row[7] }}</td>
+            <td>{{ row[8] }}</td>
+            <td>{{ row[9] }}</td> -->
+            <!-- <td>ProdutoX</td> -->
+
+            <td>
+                
+                <a class='btn' href="{{url_for('pedido.formProdutosPed', id= row[0])}}"><i class='fas fa-edit'></i></a>
+                <input type='hidden' name='idProdutoP' value=''>
+                <form action="{{ url_for('pedido.DeletePed', id= row[0]) }}" method='POST' name='DeletePed'>
+                    <input type='hidden' name='idPedido' value='{{ row[0] }}'>
+                    <button class='btn' type='submit' name='editProdutoP'><i class='fa fa-trash'></i></button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+
+    </tbody>
+</table>
+{% endblock %}

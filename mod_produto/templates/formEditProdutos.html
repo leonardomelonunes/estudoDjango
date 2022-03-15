@@ -1,0 +1,69 @@
+{% extends "modelo.html" %}
+
+{% block title %}Produto{% endblock %}
+
+{% block content %}
+<h1>Edita Produto</h1>
+<form name="Produto" method="POST" action="/produto/editProduto" enctype="multipart/form-data" class="well form-horizontal">
+
+    <div class="form-row">
+        <div class="col">
+            <label for="id_produto">Código :</label>
+            <input readonly value="{{ prod.id_produto }}" type="text" name="id_produto" id="id_produto" class="form-control"
+                arria-describeby="idProdutoHelp" placeholder="ID Produto">
+            <small id="idProdutoHelp" class="form-text text-muted">Informe o id do produto.</small>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col">
+            <label for="descricao">Descrição do Produto :</label>
+            <input value="{{ prod.descricao }}" type="text" name="descricao" id="descricao" autofocus="" class="form-control"
+                arria-describeby="descricaoHelp" placeholder="Descrição do Produto">
+            <small id="descricaoHelp" class="form-text text-muted">Informe a descrição do produto.</small>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col">
+            <label for="valor">Valor:</label>
+            <input value="{{ prod.valor }}" type="text" name="valor" id="valor" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col">
+            <label for="imagem">Imagem:</label>
+            <input value="{{ prod.imagem }}" type="file" name="imagem" accept="image/*" id="imagem" class="form-control">
+        </div>
+        <div class="col">
+            <img src='{{ prod.imagem }}'>
+        </div>
+    </div>
+
+    <br>
+
+       
+        <!-- <div class='form-row'>
+            <div class='col'>
+                <button type='submit' name='addProdutoDB' id='addProdutoDB' class='btn btn-primary form-control'><i
+                        class='fas fa-save'></i> Salvar</button>
+            </div>
+        </div> -->
+       
+
+    <div class='form-row'>
+        <div class='col'>
+
+            <div class="form-group">
+                <button type='submit' name='editProdutoDB' id='editProdutoDB' class='btn btn-success'><i
+                        class='fas fa-save'></i> Salvar</button>
+
+                <button type='submit' name='excluiProdutoDB' id='excluiProdutoDB' class='btn btn-danger'><i
+                        class='far fa-trash-alt'></i> Excluir</button>
+            </div>
+        </div>
+    </div>
+
+</form>
+{% endblock %}

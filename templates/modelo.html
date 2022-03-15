@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.3.1/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-5.10.1/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
+    <title>{% block title %}{% endblock %} - AbcBolinhas</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+    {% endblock %}
+</head>
+
+<body>
+    {% block menu %}
+    <!-- menu GET -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <!-- static-top -->
+        <a class="navbar-brand" href="{{ url_for('home.home') }}">Abc Bolinhas(Léo)</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link active" href="{{ url_for('home.home') }}"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('cliente.formListaClientes') }}"><i class="fas fa-users"></i>
+                    Clientes</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('produto.formListaProdutos') }}"><i class="fas fa-pizza-slice"></i>
+                    Produtos</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('pedido.formListaPedidos') }}"><i class="fab fa-jedi-order"></i>
+                    Pedidos</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('usuarios_db.listaUsuarios') }}"><i class="fas fa-users"></i>
+                    Usuarios</a>
+            </li>
+    
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ url_for('login.validaLogoff') }}"><i class="fas fa-sign-out-alt"></i>
+                    Sair</a>
+            </li>
+        
+            <div id="sessao" class="nav-link"></div>
+        </ul>
+    </nav>
+
+
+    {% endblock %}
+
+    <main>
+        <div class="container mt-5">
+            <div class="row mt-3">
+                <div class="col col-12">{% block content %}{% endblock %}</div>
+            </div>
+        </div>
+    </main>
+
+    {% block footer %}
+    <div class="container-fluid mt-5">
+        <footer>
+            &copy; Copyright 2019 by <a href="{{ url_for('home.home') }}">LéoNunesDEV</a>.
+        </footer>
+    </div>
+    {% endblock %}
+
+
+    <script src="{{ url_for('static', filename='bootstrap-4.3.1/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='fontawesome-5.10.1/js/all.js') }}"></script>
+
+
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+        var tempo = new Number();
+        // Tempo em segundos
+        tempo = 62;
+
+        function startCountdown() {
+
+            // Se o tempo não for zerado
+            if ((tempo - 1) >= 0) {
+
+                // Pega a parte inteira dos minutos
+                var min = parseInt(tempo / 60);
+                // Calcula os segundos restantes
+                var seg = tempo % 60;
+
+                // Formata o número menor que dez, ex: 08, 07, ...
+                if (min < 10) {
+                    min = "0" + min;
+                    min = min.substr(0, 2);
+                }
+                if (seg <= 9) {
+                    seg = "0" + seg;
+                }
+
+                // Cria a variável para formatar no estilo hora/cronômetro
+                horaImprimivel = 'Sessão 00:' + min + ':' + seg;
+                //JQuery pra setar o valor
+                $("#sessao").html(horaImprimivel);
+
+                // Define que a função será executada novamente em 1000ms = 1 segundo
+                setTimeout('startCountdown()', 1000);
+
+                // diminui o tempo
+                tempo--;
+
+                // Quando o contador chegar a zero faz esta ação
+            } else {
+                window.open('{{ url_for('home.home') }}', '_self');
+            }
+
+        }
+
+        // Chama a função ao carregar a tela, somente se a sessão estiver ativa
+        {% if 'usuario' in session %}
+            startCountdown();
+        {% endif %}
+    </script>
+
+</body>
+
+</html>

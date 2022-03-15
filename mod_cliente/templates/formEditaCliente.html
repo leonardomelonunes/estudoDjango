@@ -1,0 +1,101 @@
+{% extends "modelo.html" %}
+
+{% block title %}Cliente{% endblock %}
+
+{% block content %}
+<h1>Edita Cliente</h1>
+<form name="cliente" method="POST" action="/cliente/editCliente" class="well form-horizontal">
+      <div class="form-row">
+         <div class="col">
+            <label for="idCliente">Código :</label>
+            <input readonly value="{{ cliente.id_cliente }}" type="text" name="idCliente" id="idCliente" class="form-control"
+               arria-describeby="idClienteHelp" placeholder="ID Cliente">
+            <small id="idClienteHelp" class="form-text text-muted">Informe o id do cliente.</small>
+         </div>
+         <div class="col">
+            <label for="nome">Nome Cliente :</label>
+            <input  value="{{ cliente.nome }}" type="text" name="nome" id="nome" autofocus="" class="form-control"
+               arria-describeby="nomeClienteHelp" placeholder="Nome Cliente">
+            <small id="nomeClienteHelp" class="form-text text-muted">Informe o Nome do cliente.</small>
+         </div>
+      </div>
+
+      <div class="form-row">
+         <div class="col">
+            <label for="endereco">Endereço :</label>
+            <input  value="{{ cliente.endereco }}" type="text" name="endereco" id="endereco" class="form-control">
+         </div>
+         <div class="col">
+            <label for="numero">Número :</label>
+            <input value="{{ cliente.numero }}" type="number" name="numero" id="numero" class="form-control">
+         </div>
+      </div>
+
+      <div class="form-row">
+         <div class="col">
+            <label for="observacao">Observação :</label>
+            <input value="{{ cliente.observacao }}" type="text" name="observacao" id="observacao" class="form-control">
+         </div>
+      </div>
+
+      <div class="form-row">
+         <div class="col-1">
+            <label for="cepCliente">CEP :</label>
+            <input value="{{ cliente.cep }} " type="text" name="cep" id="cep" class="form-control">
+         </div>
+         <div class="col">
+            <label for="bairro">Bairro :</label>
+            <input value="{{ cliente.bairro }}" type="text" name="bairro" id="bairro" class="form-control">
+         </div>
+         <div class="col">
+            <label for="cidade">Cidade :</label>
+            <input value="{{ cliente.cidade }}" type="text" name="cidade" id="cidade" class="form-control">
+         </div>
+         <div class="col">
+            <label for="estado">Estado :</label>
+            <select value='{{ cliente.estado }}'name="estado" id="estado" class="form-control">
+               <option>RS</option>
+               <option>SC</option>
+               <option>PR</option>
+               <option>RJ</option>
+               <option>SP</option>
+            </select>
+         </div>
+      </div>
+
+      <div class="form-row">
+         <div class="col">
+            <label for="telefone">Telefone:</label>
+            <input value="{{ cliente.telefone }}" type="tel" name="telefone" id="telefone" class="form-control">
+         </div>
+         <div class="col">
+            <label for="email">Email:</label>
+            <input value="{{ cliente.email }}" type="email" name="email" id="email" class="form-control">
+         </div>
+      </div>
+      
+
+      <br>
+
+      <!--
+      <div class='form-row'>
+         <div class='col'>
+            <button type='submit' name='addClienteDB' id='addClienteDB' class='btn btn-primary form-control'><i
+                  class='fas fa-save'></i> Salvar</button>
+         </div>
+      </div>
+      -->
+
+      <div class='form-row'>
+         <div class='col'>
+
+            <div class="form-group">
+               <button type='submit' name='editClienteDB' id='editClienteDB' class='btn btn-success'><i
+                     class='fas fa-save'></i> Salvar</button>
+               <button type='submit' name='excluiClienteDB' id='excluiClienteDB' class='btn btn-danger'><i
+                     class='far fa-trash-alt'></i> Excluir</button>
+            </div>
+         </div>
+      </div>
+</form>
+{% endblock %}

@@ -1,0 +1,69 @@
+<!-- <!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-4.3.1/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='fontawesome-5.10.1/css/all.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='custom.css') }}">
+</head> -->
+{% extends "modelo.html" %}
+
+{% block title %}Cliente{% endblock %}
+
+{% block content %}
+
+<!-- <body> -->
+    <!-- <h2 class="breadcrumb">Testando banco de dados</h2> <a href="{{ url_for('home.home') }}">Index</a> -->
+    <h1 class="font-weight-light">Cadastro de Usuário</h1>
+    <form name="usuario" method="POST" action="/usuarios/addUser">
+
+        <label for="id_usuario">ID :</label>
+        <input readonly value="" type="text" name="id_usuario" id="id_usuario">
+        <label for="nome">Nome:</label>
+        <input value="" type="text" name="nome" id="nome" autofocus="" placeholder="Escreva o nome completo">
+        <label for="login">Login:</label>
+        <input value="" type="text" name="login" id="login" placeholder="Escreva o Username">
+        <label for="senha">Senha:</label>
+        <input value="" type="password" name="senha" id="senha" placeholder="Senha para acesso"><br>
+        <label for="grupo">Grupo:</label>
+        <input value="" type="text" name="grupo" id="grupo" placeholder="Admin/User/Estoque">
+
+        <button type='submit' class="btn btn-primary" name="salvaNovoClienteBD" id="salvaNovoClienteBD">Salvar Novo Usuário</button>
+    </form>
+
+    <br>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Login</th>
+                <th>Senha</th>
+                <th>Grupo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if result %}
+            {% for row in result %}
+            <tr>
+                <th> {{ row[0] }}</th>
+                <td> {{ row[1] }}</td>
+                <td> {{ row[2] }}</td>
+                <td> {{ row[3] }}</td>
+                <td> {{ row[4] }}</td>
+                <td>
+                    <form action='/usuarios/formEditUsuario' method='POST' name='formEditUsuario'>
+                        <input type='hidden' name='id_usuario' value='{{ row[0] }}'>
+                        <button type='submit' class="btn btn-secondary" name='formEditUsuario'>Editar</button>
+                    </form>
+                </td>
+            </tr>
+           
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+
+<!-- </body> -->
+{% endblock %}

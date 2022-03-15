@@ -1,0 +1,173 @@
+{% extends "modelo.html" %}
+
+{% block title %}Pedido{% endblock %}
+
+{% block content %}
+<h1>Pedidos</h1>
+<form name='pedidos' action="{{url_for('pedido.UpPed', id= pedido.id )}}" method="POST">
+
+        <div class="row mt-3">
+                <div class="col col-3">
+                    <div class="form-group">
+                        <label for="num">Número do Pedido</label>
+                        <input readonly value="{{ pedido.id }}" id="num" type="text" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col col-3">
+                        <div class="form-group">
+                            <label for="code">Selecione o Cliente</label>
+                            <!-- {{ pedido.clientes_id }} -->
+                            <select id="code" name="code" type="text" class="form-control">
+                                {% for cliente in clientes %}
+                                <option {{ 'selected' if pedido.clientes_id|string == cliente[0]|string else '' }} value="{{ cliente[0] }}">{{ cliente[1] }} </option>
+                                {% endfor %}
+            
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col col-6">
+                            <div class="form-group">
+                                <label for="observacoes">Observações:</label>
+                                <textarea class="form-control" name="observacoes" id="observacoes" rows="2">{{ pedido.observacao }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='form-row'>
+                            <div class='col'>
+                                <div class="form-group">
+                                <button type="submit" class="btn btn-info"><i class="fa fa-save"></i> Salvar Alterações</button>
+                                </div>
+                            </div>
+                    </div>        
+                
+                    <hr> 
+                    
+</form>
+<form name='itensped' method="POST">
+
+<div class="col col-3">
+    <div class="form-group">
+        <label for="code">Selecione o Produto</label>
+        <select id="idprod" name='idprod' type="text" class="form-control">
+            {% for produto in produtos %}
+            <option value="{{ produto[0] }}">{{ produto[1] }} </option>
+            {% endfor %}
+        </select>     
+    </div>
+</div>           
+    <div class="col col-3">
+        <div class="form-group">
+            <label for="valor">valor</label>
+            <input id="valor" type="text" name='valor' class="form-control">
+        </div>
+    </div>
+    <!-- < <div class="col col-3">
+        <div class="form-group">
+            <label for="preco">Preço</label>
+            <input id="preco" type="text" class="form-control">
+        </div>
+    </div>  -->
+    <div class="col col-3">
+        <div class="form-group">
+            <label for="quantidade">Quantidade</label>
+            <input id="quantidade" name="quantidade" type="text" class="form-control">
+        </div>
+    </div>
+</div>
+<!-- <div class="row">
+    <div class="col col-3">
+        <div class="form-group">
+            <label for="total">Total R$</label>
+            <input id="total" type="text" class="form-control">
+        </div>
+    </div> -->
+
+   
+    <div class="col col-3">
+        <div class="form-group">
+            <label for="observacoes">Observações</label>
+            <input id="observacoes" name='observacoes' type="text" class="form-control">
+        </div>
+    </div>
+</div>
+
+
+
+<div class='form-row'>
+    <div class='col'>
+        <div class="form-group">
+                   <button type='submit' name='addProdutoDB' id='addProdutoDB' class='btn btn-success'><i
+                    class='fas fa-save'></i>Adicionar</button>
+
+            <!-- <button type='submit' name='excluiProdutoDB' id='excluiProdutoDB' class='btn btn-info'><i
+                    class='fa fa-save'></i> finalizar pedidos de produtos</button> -->
+        </div>
+    </div>
+</div>
+
+
+
+<hr>
+
+<table class="table table-sm table-hover table-responsive">
+    <thead>
+        <H2>Produtos a serem pedidos:</H2><br>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Quantidade</th>
+            <!-- <th scope="col">Total</th> -->
+            <th scope="col">Observações</th>
+            <th scope="col">Imagem</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in itensped %}
+        <tr>
+            <th scope='row'>{{ item[1] }}</td>
+            <td>{{ item[5] }}</td>
+            <td>{{ item[3] }}</td>
+            <td>{{ item[2] }}</td>
+            <!-- <td></td> -->
+            <td>{{ item[4] }}</td>
+            <td> <img max-width='60px' height="60px" src="{{ item[7] }}"></td>
+            <td>
+                <form action='{{ url_for("pedido.DeleteProdutoPed") }}' method='POST' name='deleteProdutoP'>
+                    <input type='hidden' name='idProdutoP' value='{{ item[1] }}'>
+                    <input type='hidden' name='idPedido' value='{{ pedido.id }}'>
+                    <button class='btn' type='submit' name='editProdutoP'><i class='fa fa-trash'></i></button>
+                </form>
+            </td>
+        </tr>
+        
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- <div class='form-row'>
+    <div class='col'>
+        <div class="form-group">
+        <button id='salvarpedido' type='submit' name='salvarpedido' class="btn btn-info"><i class="fa fa-save"></i> Salvar Pedido</button>
+            
+        </div>
+    </div>
+</div> -->
+
+<div>
+    <a class='btn' href="{{url_for('pedido.report', id= pedido.id)}}">Clique aqui para Gerar Relatório em PDF<i class='fas fa-edit'></i></a>
+</div>
+
+<a class="btn btn-danger" href="{{url_for('pedido.formListaPedidos')}}"><i class="fas fa-plus-circle"></i> Concluir</a>
+
+
+
+
+
+
+</form>
+
+{% endblock %}
